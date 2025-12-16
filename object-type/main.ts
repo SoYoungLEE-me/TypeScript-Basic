@@ -1,6 +1,6 @@
 //객체를 object 타입으로 선언하는 것은 의미 없음
 //객체 안의 각각의 속성의 타입을 지정해주는 것이 일반적
-
+export {};
 let b: { name: string; age: number } = {
   name: "이소영",
   age: 23,
