@@ -67,7 +67,7 @@ const userWithEmail: IUser = {
 };
 
 //문제 2
-//아래와 같은 구조를 나타내는 타입을 정의하고, 해당 타입을 기반으로 객체를 작성하라
+// 아래와 같은 구조를 나타내는 타입을 정의하고, 해당 타입을 기반으로 객체를 작성하라
 // 사용자(User)는 다음 속성을 가집니다:
 // id: 숫자
 // name: 문자열
@@ -128,7 +128,7 @@ type TProduct = {
   price: number;
 };
 
-type DiscountProduct = TProduct & {
+type TDiscountProduct = TProduct & {
   discount: number;
 };
 
@@ -138,7 +138,7 @@ const normalProduct: TProduct = {
   price: 1000,
 };
 
-const discountedProduct: DiscountProduct = {
+const discountedProduct: TDiscountProduct = {
   id: 2,
   name: "Smartphone",
   price: 800,
