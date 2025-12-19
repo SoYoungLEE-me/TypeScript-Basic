@@ -37,10 +37,10 @@ type Discount = {
   discountPercentage: number;
 };
 
-const calculateDiscountedPrice = (item: Product & Discount): number => {
-  let result = item.price - item.price * (item.discountPercentage / 100);
+function calculateDiscountedPrice(item: Product & Discount): number {
+  const result = item.price - item.price * (item.discountPercentage / 100);
   return result;
-};
+}
 
 const discountedProduct: Product & Discount = {
   id: 101,
@@ -49,7 +49,7 @@ const discountedProduct: Product & Discount = {
   discountPercentage: 20,
 };
 
-console.log(calculateDiscountedPrice(discountedProduct));
+console.log(calculateDiscountedPrice(discountedProduct)); // 800
 
 //문제 2.
 //아래의 조건에 따라 복합 데이터를 처리하는 타입을 정의하고, 관련된 함수를 작성하시오.
@@ -64,10 +64,10 @@ type OrderInfo = {
   items: string[];
 };
 
-const printOrderSummary = (order: ContactInfo & OrderInfo): string => {
-  let result = `order : ${order.orderId} (Phone : ${order.phone})`;
+function printOrderSummary(order: ContactInfo & OrderInfo): string {
+  const result = `order : ${order.orderId} (Phone : ${order.phone})`;
   return result;
-};
+}
 
 const orderDetails: ContactInfo & OrderInfo = {
   phone: "123-456-7890",
@@ -94,19 +94,24 @@ type Activity = {
 
 type UserData = Profile & Activity;
 
-const mergeUserData = (profile: Profile, activity: Activity): UserData => {
+function mergeUserData(profile: Profile, activity: Activity): UserData {
   return {
     ...profile,
     ...activity,
   };
-};
+}
 
-const getUserSummary = (user: UserData): string => {
-  let result = `사용자 ${user.id} - ${user.name} (${user.email} - 마지막 로그인 : ${user.lastLogin})`;
+function getUserSummary(user: UserData): string {
+  const result = `사용자 ${user.id} - ${user.name} (${user.email} - 마지막 로그인 : ${user.lastLogin})`;
   return result;
+}
+
+const profile: Profile = {
+  id: 1,
+  name: "Alice",
+  email: "alice@example.com",
 };
 
-const profile: Profile = { id: 1, name: "Alice", email: "alice@example.com" };
 const activity: Activity = {
   lastLogin: new Date("2024-01-01T10:00:00Z"),
   actions: ["login", "viewed dashboard", "logout"],
