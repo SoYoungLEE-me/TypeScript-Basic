@@ -65,10 +65,52 @@ console.log(newValue.length);
 // 타입스크립트 컴파일에서는 HTMl Element인걸 모르기 때문에 dom 조작의 속상과 메서드에서 오류가남
 //그럴 때 많이 씀
 
-const inputElement = document.querySelector("input");
+// const inputElement = document.querySelector("input");
 
-const input = inputElement as HTMLInputElement;
+// const input = inputElement as HTMLInputElement;
 
-input.value = "1111";
+// input.value = "1111";
 
 //dom 요소와 같이 정말 타입 확정이 필요한 순간이 아니면 너무 남발하면 안됨
+
+//문제 1
+type ExtractReturnType<F> = F extends (...arg: any[]) => infer R ? R : F;
+
+type Test1 = ExtractReturnType<() => string>;
+type Test2 = ExtractReturnType<(x: number) => boolean>;
+type Test3 = ExtractReturnType<(x: number, y: string) => { id: number }>;
+
+//문제 2
+function getValue<T, K extends keyof T>(obj: T, key: K): T[K] {
+  key as keyof T;
+  return obj[key];
+}
+
+const user = {
+  id: 1,
+  name: "Alice",
+  email: "alice@example.com",
+};
+
+console.log(getValue(user, "name"));
+console.log(getValue(user, "email"));
+
+//문제 3
+type RequestData<T> = T extends "text"
+  ? string
+  : T extends "json"
+  ? Record<string, any>
+  : T extends "binary"
+  ? Uint8Array
+  : never;
+
+function processRequest<T extends "text" | "json" | "binary">(
+  type: T,
+  data: RequestData<T>
+): string {
+  return `Processed: ${data}`;
+}
+
+console.log(processRequest("text", "Hello"));
+console.log(processRequest("json", { key: "value" }));
+console.log(processRequest("binary", new Uint8Array([72, 101, 108, 108, 111])));
